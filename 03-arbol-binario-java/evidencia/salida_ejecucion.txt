@@ -1,0 +1,78 @@
+==================================================
+PARTE 1: Clasificacion de cuatro arboles pequenos
+==================================================
+Arbol 1 (forma del arbol lleno)
+  Nodos: 5 | Altura: 3
+  Clasificacion: lleno, completo
+
+Arbol 2 (forma del arbol completo)
+  Nodos: 6 | Altura: 3
+  Clasificacion: completo
+
+Arbol 3 (forma del arbol perfecto)
+  Nodos: 7 | Altura: 3
+  Clasificacion: lleno, completo, perfecto
+
+Arbol 4 (forma del arbol degenerado)
+  Nodos: 5 | Altura: 5
+  Clasificacion: degenerado
+
+Nota: las clasificaciones no son excluyentes. Un arbol perfecto
+es tambien lleno y completo.
+
+==================================================
+PARTE 2: Arbol manual de 7 nodos (A..G)
+==================================================
+Raiz: A
+  Hijo izquierdo: B
+  Hijo derecho:   C
+
+Hijos de B:
+Raiz: B
+  Hijo izquierdo: D
+  Hijo derecho:   E
+Hijos de C:
+Raiz: C
+  Hijo izquierdo: F
+  Hijo derecho:   G
+
+Clasificacion del arbol de 7 nodos
+  Nodos: 7 | Altura: 3
+  Clasificacion: lleno, completo, perfecto
+
+==================================================
+PARTE 3: Pruebas de manejo de null
+==================================================
+Prueba 1: imprimir una hoja (sus hijos son null, sin error)
+Raiz: D
+  Hijo izquierdo: (no tiene, referencia null)
+  Hijo derecho:   (no tiene, referencia null)
+  esHoja() de D = true
+
+Prueba 2: acceso seguro con validacion
+  D no tiene hijo izquierdo: se evita el error con if != null
+
+Prueba 3: que pasaria SIN validar (se captura la excepcion)
+  NullPointerException capturada: no se puede leer el dato de null
+
+Prueba 4: metodos utilitarios con arbol nulo
+  contarNodos(null) = 0
+  altura(null)      = 0
+  clasificar(null)  = arbol vacio
+
+==================================================
+PARTE 4: Arbol de expresiones (3 + 5) * (8 - 2)
+==================================================
+Raiz y operandos directos:
+Raiz: *
+  Hijo izquierdo: +
+  Hijo derecho:   -
+
+Expresion infija : ((3 + 5) * (8 - 2))
+Resultado        : 48
+
+Clasificacion del arbol de expresion
+  Nodos: 7 | Altura: 3
+  Clasificacion: lleno, completo, perfecto
+
+Fin del programa.
