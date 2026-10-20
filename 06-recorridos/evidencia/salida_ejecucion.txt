@@ -1,0 +1,185 @@
+==================================================
+PARTE 1: BST de 10 productos construido por codigo
+==================================================
+Orden de insercion: 50 30 70 40 20 60 80 35 90 65
+Nodos: 10 | Altura: 4
+
+Arbol (raiz a la izquierda, derecha arriba):
+                    90
+              80
+        70
+                    65
+              60
+  50
+              40
+                    35
+        30
+              20
+
+==================================================
+PARTE 2: Los cuatro recorridos sobre el mismo BST
+==================================================
+Preorden   (raiz-izq-der)   : 50 30 20 40 35 70 60 65 80 90
+Inorden    (izq-raiz-der)   : 20 30 35 40 50 60 65 70 80 90
+Postorden  (izq-der-raiz)   : 20 35 40 30 65 60 90 80 70 50
+Por niveles (cola, BFS)     : 50 30 70 20 40 60 80 35 65 90
+
+Inorden con nombres de producto:
+  20 Cable USB | 30 Mouse | 35 Webcam | 40 Monitor | 50 Laptop | 60 Impresora | 65 Router | 70 Teclado | 80 Audifonos | 90 Tablet
+
+==================================================
+PARTE 3: Inorden vs lista ordenada
+==================================================
+Lista ordenada (Collections.sort): 20 30 35 40 50 60 65 70 80 90
+Salida del inorden               : 20 30 35 40 50 60 65 70 80 90
+Son iguales: true
+
+==================================================
+PARTE 4: Eliminar sin destruir el arbol (tres casos)
+==================================================
+--- CASO 1: eliminar un nodo HOJA ---
+Clave a eliminar: 20 (Cable USB)  ->  CASO 1: nodo hoja
+
+ANTES (raiz a la izquierda, derecha arriba):
+                    90
+              80
+        70
+                    65
+              60
+  50
+              40
+                    35
+        30
+              20
+  inorden: 20 30 35 40 50 60 65 70 80 90
+
+eliminar(20) = true
+
+DESPUES:
+                    90
+              80
+        70
+                    65
+              60
+  50
+              40
+                    35
+        30
+  inorden: 30 35 40 50 60 65 70 80 90
+  nodos: 9 | el arbol sigue siendo un BST valido
+
+--- CASO 2: eliminar un nodo con UN HIJO ---
+Clave a eliminar: 60 (Impresora)  ->  CASO 2: nodo con un hijo
+
+ANTES (raiz a la izquierda, derecha arriba):
+                    90
+              80
+        70
+                    65
+              60
+  50
+              40
+                    35
+        30
+              20
+  inorden: 20 30 35 40 50 60 65 70 80 90
+
+eliminar(60) = true
+
+DESPUES:
+                    90
+              80
+        70
+              65
+  50
+              40
+                    35
+        30
+              20
+  inorden: 20 30 35 40 50 65 70 80 90
+  nodos: 9 | el arbol sigue siendo un BST valido
+
+--- CASO 3: eliminar un nodo con DOS HIJOS (la raiz) ---
+Clave a eliminar: 50 (Laptop)  ->  CASO 3: nodo con dos hijos
+
+ANTES (raiz a la izquierda, derecha arriba):
+                    90
+              80
+        70
+                    65
+              60
+  50
+              40
+                    35
+        30
+              20
+  inorden: 20 30 35 40 50 60 65 70 80 90
+
+eliminar(50) = true
+
+DESPUES:
+                    90
+              80
+        70
+              65
+  60
+              40
+                    35
+        30
+              20
+  inorden: 20 30 35 40 60 65 70 80 90
+  nodos: 9 | el arbol sigue siendo un BST valido
+
+==================================================
+PARTE 5: Eliminar el arbol completo de forma segura (POSTORDEN)
+==================================================
+Postorden esperado : 20 35 40 30 65 60 90 80 70 50
+Orden de liberacion: 20 35 40 30 65 60 90 80 70 50
+Arbol vacio despues de vaciar(): true
+
+==================================================
+PARTE 6: Pruebas
+==================================================
+-- Recorridos sobre el BST de 10 productos --
+  [OK]    preorden  = 50 30 20 40 35 70 60 65 80 90
+  [OK]    inorden   = 20 30 35 40 50 60 65 70 80 90
+  [OK]    postorden = 20 35 40 30 65 60 90 80 70 50
+  [OK]    porNiveles = 50 30 70 20 40 60 80 35 65 90
+  [OK]    inorden coincide con la lista ordenada con Collections.sort
+  [OK]    el BST tiene 10 nodos y altura 4
+-- Casos borde de los recorridos --
+  [OK]    arbol vacio: los 4 recorridos devuelven lista vacia
+  [OK]    un solo nodo: los 4 recorridos devuelven [7]
+  [OK]    arbol degenerado 1..5: preorden = inorden = niveles = 1 2 3 4 5
+  [OK]    arbol degenerado 1..5: postorden = 5 4 3 2 1
+  [OK]    insertar una clave repetida es rechazado
+-- Eliminacion: caso 1 (hoja) --
+  [OK]    tipoDeCaso(20) es hoja
+  [OK]    eliminar(20) devuelve true
+  [OK]    inorden sin el 20 y sigue ordenado
+  [OK]    el nodo 30 ya no tiene hijo izquierdo y quedan 9 nodos
+-- Eliminacion: caso 2 (un hijo) --
+  [OK]    tipoDeCaso(60) es un hijo
+  [OK]    eliminar(60) devuelve true
+  [OK]    el 65 ocupa el lugar del 60 (hijo izquierdo de 70)
+  [OK]    inorden sin el 60 y sigue ordenado
+-- Eliminacion: caso 3 (dos hijos) --
+  [OK]    tipoDeCaso(50) es dos hijos
+  [OK]    eliminar(50) devuelve true
+  [OK]    la nueva raiz es 60 (sucesor inorden)
+  [OK]    el 65 subio y quedo como hijo izquierdo de 70
+  [OK]    inorden sin el 50 y sigue ordenado
+  [OK]    eliminar(30) (dos hijos): su lugar lo toma el 35
+-- Eliminacion: casos borde --
+  [OK]    eliminar(999) (no existe) devuelve false y no cambia el arbol
+  [OK]    eliminar en arbol vacio devuelve false
+  [OK]    eliminar la unica raiz deja el arbol vacio
+  [OK]    tras eliminar 20,60,50,90,30 el inorden sigue ordenado y quedan 5 nodos
+-- Eliminar el arbol completo (postorden) --
+  [OK]    vaciar() libera en orden postorden (hijos antes que el padre)
+  [OK]    tras vaciar() el arbol queda vacio y la raiz vieja sin hijos
+
+RESULTADO DE PRUEBAS: 31 correctas, 0 fallidas
+
+Todas las pruebas pasaron.
+Fin del programa.
